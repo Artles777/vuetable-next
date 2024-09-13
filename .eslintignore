@@ -1,0 +1,4 @@
+build/*.js
+config/*.js
+build/*.ts
+config/*.ts
