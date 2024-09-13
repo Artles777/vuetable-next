@@ -4,7 +4,9 @@ import AutoImport from "unplugin-auto-import/vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [vue(), AutoImport()],
+  plugins: [vue(), AutoImport({
+    viteOptimizeDeps: true
+  })],
   optimizeDeps: {
     exclude: ["vue-demi"]
   }
