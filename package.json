@@ -21,6 +21,14 @@
     "vitest",
     "vuetable"
   ],
+  "exports": {
+    ".": {
+      "types": "./dist/vuetable-next.d.ts",
+      "import": "./dist/vuetable-next.mjs",
+      "require": "./dist/vuetable-next.umd.js"
+    },
+    "./*": "./*"
+  },
   "bugs": {
     "url": "https://github.com/Artles777/vuetable-next/issues"
   },
