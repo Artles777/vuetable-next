@@ -439,6 +439,7 @@ provide("vuetable", {
   scrollBarWidth: unref(scrollBarWidth),
   sortOrder,
   trackBy,
+  perPage,
   showSortIcons,
   css: toRefs($_css),
   isFieldSlot,
@@ -466,21 +467,6 @@ provide("vuetable", {
   getObjectValue,
   isSelectedRow
 });
-// provide("tableData", tableData);
-// provide("tableFields", tableFields);
-// provide("scrollBarWidth", scrollBarWidth);
-// provide("sortOrder", sortOrder);
-// provide("$_css", $_css);
-// provide("fieldPrefix", fieldPrefix);
-// provide("showSortIcons", showSortIcons);
-// provide("trackBy", trackBy);
-// provide("isSortable", isSortable);
-// provide("onHeaderEvent", onHeaderEvent);
-// provide("orderBy", orderBy);
-// provide("onCheckboxToggled", onCheckboxToggled);
-// provide("onCheckboxToggledAll", onCheckboxToggledAll);
-// provide("isSelectedRow", isSelectedRow);
-// provide("perPage", isSelectedRow);
 
 function getScrollBarWidth () {
   const outer = document.createElement("div");
