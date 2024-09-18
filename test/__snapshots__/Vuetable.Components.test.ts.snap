@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Vuetable - Components > render VuetableFieldCheckbox 1`] = `
+<td
+  class="vuetable-td-component-checkbox"
+>
+  <input
+    type="checkbox"
+  />
+</td>
+`;

@@ -330,7 +330,7 @@ const instanceFetch = ref<Promise<AxiosResponse>>();
 
 const $_css = reactive({ ...CssSemanticUI.table, ...css });
 
-const dataIsAvailable = computed(() => tableData.value?.length! > 0 ?? false);
+const dataIsAvailable = computed(() => !tableData.value?.length ? false : tableData.value?.length > 0);
 const useDetailRow = computed(() => dataIsAvailable.value && detailRowComponent !== "");
 const hasRowIdentifier = computed(() => tableData.value && typeof tableData.value[0][trackBy] !== "undefined");
 const countVisibleFields = computed(() => tableFields.value.filter(field => field.visible).length);
