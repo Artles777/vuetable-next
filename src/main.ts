@@ -394,3 +394,5 @@ app.component("settings-modal", {
 app.component("vuetable-field-checkbox", VuetableFieldCheckbox);
 app.component("vuetable-field-handle", VuetableFieldHandle);
 app.component("vuetable-field-sequence", VuetableFieldSequence);
+
+app.mount("#app");

@@ -1,4 +1,4 @@
-import { install, createApp } from "vue-demi";
+import type { App } from "vue-demi";
 import Vuetable from "./components/Vuetable.vue";
 import VuetableColGutter from "./components/VuetableColGutter.vue";
 import VuetableFieldCheckbox from "./components/VuetableFieldCheckbox.vue";
@@ -22,19 +22,19 @@ if (!rootVariable!.Promise) {
   rootVariable!.Promise = Promise;
 }
 
-const app = createApp(Vuetable);
+function install (Vue: App) {
+  Vue.component("vuetable", Vuetable);
+  Vue.component("vuetable-col-gutter", VuetableColGutter);
+  Vue.component("vuetable-field-checkbox", VuetableFieldCheckbox);
+  Vue.component("vuetable-field-handle", VuetableFieldHandle);
+  Vue.component("vuetable-field-sequence", VuetableFieldSequence);
+  Vue.component("vuetable-pagination", VuetablePagination);
+  Vue.component("vuetable-pagination-dropdown", VuetablePaginationDropdown);
+  Vue.component("vuetable-pagination-info", VuetablePaginationInfo);
+  Vue.component("vuetable-row-header", VuetableRowHeader);
+}
 
-app.component("vuetable", Vuetable);
-app.component("vuetable-col-gutter", VuetableColGutter);
-app.component("vuetable-field-checkbox", VuetableFieldCheckbox);
-app.component("vuetable-field-handle", VuetableFieldHandle);
-app.component("vuetable-field-sequence", VuetableFieldSequence);
-app.component("vuetable-pagination", VuetablePagination);
-app.component("vuetable-pagination-dropdown", VuetablePaginationDropdown);
-app.component("vuetable-pagination-info", VuetablePaginationInfo);
-app.component("vuetable-row-header", VuetableRowHeader);
-
-install(app);
+Vuetable.install = install;
 
 export {
   Vuetable,
