@@ -1,6 +1,6 @@
 <script lang="ts">
 import CssSemanticUI from "./VuetableCssSemanticUI";
-import {defineComponent} from "vue-demi";
+import { defineComponent } from "vue-demi";
 
 interface TablePagination {
   current_page: number;
@@ -88,7 +88,7 @@ export default defineComponent({
 
   methods: {
     mergeCss () {
-      this.customCss = {...CssSemanticUI.pagination, ...this.css};
+      this.customCss = { ...CssSemanticUI.pagination, ...this.css };
     },
     loadPage (page: number) {
       this.$emit("vuetable-pagination:change-page", page);

@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive } from "vue-demi";
 import mitt from "mitt";
-import CssSemanticUI from "./VuetableCssSemanticUI.ts";
+import CssSemanticUI from "./VuetableCssSemanticUI";
 import { useVuetablePagination } from "./useVuetablePagination.ts";
 
 interface Props {

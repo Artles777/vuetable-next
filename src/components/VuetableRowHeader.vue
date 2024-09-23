@@ -17,7 +17,7 @@
         <template v-else-if="vuetable.isFieldSlot(field.name)">
           <th :key="fieldIndex"
               :class="headerClass('vuetable-th-slot', field)"
-              :style="{width: field.width}"
+              :style="{ width: field.width! }"
               v-html="renderTitle(field)"
               @click="onColumnHeaderClicked(field, $event)">
           </th>
@@ -26,7 +26,7 @@
           <th :key="fieldIndex"
               :id="'_' + field.name"
               :class="headerClass('vuetable-th', field)"
-              :style="{width: field.width}"
+              :style="{ width: field.width! }"
               v-html="renderTitle(field)"
               @click="onColumnHeaderClicked(field, $event)">
           </th>
@@ -43,16 +43,22 @@ import VuetableFieldCheckbox from "./VuetableFieldCheckbox.vue";
 import VuetableFieldHandle from "./VuetableFieldHandle.vue";
 import VuetableFieldSequence from "./VuetableFieldSequence.vue";
 import VuetableColGutter from "./VuetableColGutter.vue";
-import type { Component } from "vue-demi";
+import type { DefineComponent } from "vue-demi";
 import { inject } from "vue-demi";
 import { defineOptions } from "vue-demi";
 import type Vuetable from "./Vuetable.vue";
 
 interface Field {
-  name: Component | string
-  titleClass?: string;
-  sortField?: string;
-  title?: string | (()  => string);
+  name: string | DefineComponent
+  sortField: string | null
+  title: string | ((str?: any) => string)
+  titleClass: string
+  dataClass: string
+  formatter: (<T>(...args: any[]) => T) | null
+  visible: boolean
+  width: string | null
+  $_index: number
+  [key: string]: unknown
 }
 
 defineOptions({
@@ -95,13 +101,13 @@ function toSnakeCase (str: Field["name"]) {
 
 function sortClass (field: Field) {
   const index = currentSortOrderPosition(field);
-  return index ? (vuetable.sortOrder[index].direction == "asc") ? vuetable.css.ascendingClass : vuetable.css.descendingClass : "";
+  return index ? (vuetable.sortOrder![index].direction == "asc") ? vuetable.css!.ascendingClass : vuetable.css!.descendingClass : "";
 }
 
 function sortIcon (field: Field) {
   const index = currentSortOrderPosition(field);
 
-  return index ? vuetable.css.sortableIcon : (vuetable.sortOrder[index].direction == "asc") ? vuetable.css.ascendingIcon : vuetable.css.descendingIcon;
+  return index ? vuetable.css!.sortableIcon : (vuetable.sortOrder![index].direction == "asc") ? vuetable.css!.ascendingIcon : vuetable.css!.descendingIcon;
 }
 
 function isInCurrentSortGroup (field: Field) {
@@ -109,7 +115,7 @@ function isInCurrentSortGroup (field: Field) {
 }
 
 function hasSortableIcon (field: Field) {
-  return vuetable.isSortable(field) && vuetable.css.sortableIcon != "";
+  return vuetable.isSortable(field) && vuetable.css!.sortableIcon != "";
 }
 
 function currentSortOrderPosition (field: Field): number {
@@ -117,7 +123,7 @@ function currentSortOrderPosition (field: Field): number {
     return 0;
   }
 
-  for (let i = 0; i < vuetable.sortOrder.length; i++) {
+  for (let i = 0; i < vuetable.sortOrder!.length; i++) {
     if (fieldIsInSortOrderPosition(field, i)) {
       return i;
     }
@@ -127,7 +133,7 @@ function currentSortOrderPosition (field: Field): number {
 }
 
 function fieldIsInSortOrderPosition (field: Field, index: number) {
-  return vuetable.sortOrder[index].field === field.name && vuetable.sortOrder[index].sortField === field.sortField;
+  return vuetable.sortOrder![index].field === field.name && vuetable.sortOrder![index].sortField === field.sortField;
 }
 
 function renderTitle (field: Field) {
@@ -164,7 +170,7 @@ function sortIconOpacity (field: Field) {
   const min = 0.3;
   let step = 0.3;
 
-  const count = vuetable.sortOrder.length;
+  const count = vuetable.sortOrder!.length;
   const current = currentSortOrderPosition(field);
 
   if (max - count * step < min) {
@@ -175,13 +181,13 @@ function sortIconOpacity (field: Field) {
 }
 
 function renderIconTag (classes: string[], options = "") {
-  return typeof vuetable.css.renderIcon === "undefined"
+  return typeof vuetable.css!.renderIcon === "undefined"
     ? `<i class="${classes.join(" ")}" ${options}></i>`
-    : vuetable.css.renderIcon(classes, options);
+    : vuetable.css!.renderIcon(classes, options);
 }
 
 function onColumnHeaderClicked (field: Field, event: Event): void {
-  vuetable.orderBy(field, event);
+  vuetable.orderBy(field, event as Event & { [key: string]: string });
 }
 </script>
 

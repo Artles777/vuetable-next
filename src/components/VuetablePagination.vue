@@ -54,7 +54,7 @@
 <script setup lang="ts">
 import { defineEmits, defineProps, reactive, toRef } from "vue-demi";
 import CssSemanticUI from "./VuetableCssSemanticUI.ts";
-import { useVuetablePagination } from "./useVuetablePagination.ts";
+import { useVuetablePagination } from "./useVuetablePagination";
 
 interface Props {
   css?: { [key: string]: string }

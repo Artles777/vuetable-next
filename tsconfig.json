@@ -3,7 +3,13 @@
   "compilerOptions": {
     "noImplicitAny": false,
     "types": ["vitest/globals"],
-    "baseUrl": "."
+    "baseUrl": ".",
+    "lib": [
+      "es2020",
+      "dom"
+    ],
+    "moduleResolution": "Node",
+    "allowSyntheticDefaultImports": true
   },
   "references": [
     {

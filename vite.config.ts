@@ -6,6 +6,7 @@ import { version } from "vue";
 import type { SemVer } from "semver";
 import { parse } from "semver";
 import dts from "vite-plugin-dts";
+import { resolve } from "path";
 
 const { major, minor } = parse(version) as SemVer;
 
@@ -33,14 +34,16 @@ export default defineConfig({
   build: {
     lib: {
       name,
-      entry: "src/index.ts"
+      entry: resolve(__dirname, "src/index.ts")
     },
+    copyPublicDir: false,
     sourcemap: true,
     rollupOptions: {
       external: ["vue-demi"],
       output: {
         globals: {
           [name]: PascalCasedName,
+          "vue-demi": "VueDemi"
         },
         exports: "named"
       }

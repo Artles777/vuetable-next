@@ -12,8 +12,6 @@ import VuetableFieldMixin from "./components/VuetableFieldMixin.vue";
 import VuetableFieldCheckboxMixin from "./components/VuetableFieldCheckboxMixin.vue";
 import VuetablePaginationInfoMixin from "./components/VuetablePaginationInfoMixin.vue";
 import VuetablePaginationMixin from "./components/VuetablePaginationMixin.vue";
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
 import Promise from "promise-polyfill";
 
 // @ts-ignore

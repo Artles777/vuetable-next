@@ -25,7 +25,7 @@ import type Vuetable from "./Vuetable.vue";
 interface Props {
   rowData?: { [key: string]: any }
   rowIndex?: number
-  rowField?: { [key: string]: unknown } | null
+  rowField?: { [key: string]: any } | null
   isHeader?: boolean
   title?: string
 }
@@ -53,7 +53,7 @@ function toggleAllCheckbox (event: Event) {
   vuetable.onCheckboxToggledAll((event as CustomEvent).target.checked);
 }
 
-function isSelected (rowData: { [key: string]: unknown }): boolean {
+function isSelected (rowData: { [key: string]: any }): boolean {
   return vuetable.isSelectedRow(rowData[vuetable.trackBy]);
 }
 
@@ -62,7 +62,7 @@ function isAllItemsInCurrentPageSelected () {
 
   const idColumn = vuetable.trackBy;
   const checkboxEl = checkbox.value?.$el.querySelector("input[type=checkbox]");
-  const selected = vuetable.tableData.filter((item: { [key: string]: unknown }) => vuetable.isSelectedRow(item[idColumn]) );
+  const selected = vuetable.tableData.filter((item: { [key: string]: string }) => vuetable.isSelectedRow(item[idColumn]) );
 
   // count == 0, clear the checkbox
   if (selected.length <= 0) {
@@ -70,7 +70,7 @@ function isAllItemsInCurrentPageSelected () {
     return false;
   }
   // count > 0 and count < perPage, set checkbox state to 'indeterminate'
-  else if (selected.length < vuetable.perPage) {
+  else if (selected.length < vuetable.perPage!) {
     checkboxEl.indeterminate = true;
     return true;
   }

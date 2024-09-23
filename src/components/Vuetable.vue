@@ -82,8 +82,10 @@
                       :class="bodyClass('vuetable-slot', field)"
                       :style="{ width: field.width! }">
                       <slot
-                        :name="field.name"
-                        :row-data="item" :row-index="itemIndex" :row-field="field">
+                        :name="field.name as string"
+                        :row-data="item"
+                        :row-index="itemIndex"
+                        :row-field="field">
                       </slot>
                     </td>
                   </template>
@@ -186,14 +188,14 @@ interface Props {
   dataManager?: ((sortOrder: SortOrder[], pagination: { [key: string]: any }) => any[]) | null
   dataPath?: string
   paginationPath?: string
-  queryParams?: { [key: string]: string | number } | ((sortOrder: string, currentPage: number, perPage: number) => { [key: string]: string | number } | string | number)
+  queryParams?: { [key: string]: string | number } | ((sortOrder: SortOrder[] | string, currentPage: number, perPage: number) => { [key: string]: string | number } | string | number)
   appendParams?: { [key: string]: string | number }
   httpOptions?: Record<string, unknown>
   httpFetch?: ((apiUrl: string, httpOptions: Record<string, unknown>) => AxiosResponse) | null
   perPage?: number
   initialPage?: number /** Page that should be displayed when the table is first displayed */
   firstPage?: number /** First page number. Set this prop to 0 for zero based pagination */
-  sortOrder?: SortOrder[] | string
+  sortOrder?: SortOrder[]
   multiSort?: boolean
   tableHeight?: string | null
   /*
@@ -215,7 +217,7 @@ interface Props {
   showSortIcons?: boolean
   headerRows?: string[]
   transform?: ((response: AxiosResponse) => any) | null
-  sortParams?: ((sortOrder: string | SortOrder[]) => string) | null
+  sortParams?: ((sortOrder: SortOrder[]) => string) | null
   fieldPrefix?: string
 }
 
@@ -233,9 +235,13 @@ interface Field {
 }
 
 interface Pagination {
-  first_page: number
+  total: number
+  per_page: number
+  from: number
+  to: number
   last_page: number
   current_page: number
+  first_page: number
 }
 
 const {
@@ -395,6 +401,8 @@ defineExpose({
   trackBy,
   showSortIcons,
   instanceFetch,
+  isFieldSlot,
+  onHeaderEvent,
   setData,
   getFieldTitle,
   orderBy,
@@ -443,6 +451,7 @@ provide("vuetable", {
   showSortIcons,
   css: toRefs($_css),
   isFieldSlot,
+  onHeaderEvent,
   setData,
   getFieldTitle,
   orderBy,
@@ -628,8 +637,8 @@ function isFieldComponent (fieldName: any) {
   return fieldName.slice(0, fieldPrefix.length) === fieldPrefix || fieldName.slice(0, 2) === "__";
 }
 
-function isFieldSlot (fieldName: string) {
-  return typeof slots[fieldName] !== "undefined";
+function isFieldSlot (fieldName: string | DefineComponent) {
+  return typeof slots[fieldName as string] !== "undefined";
 }
 
 function titleCase (str: string) {
