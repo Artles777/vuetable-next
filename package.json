@@ -1,7 +1,7 @@
 {
   "name": "vuetable-next",
   "description": "Simple table for displaying data.",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Artem Alesenko",
   "type": "module",
   "private": false,
@@ -24,8 +24,8 @@
   "exports": {
     ".": {
       "types": "./dist/vuetable-next.d.ts",
-      "import": "./dist/vuetable-next.mjs",
-      "require": "./dist/vuetable-next.umd.js"
+      "import": "./dist/vuetable-next.js",
+      "require": "./dist/vuetable-next.umd.cjs"
     },
     "./*": "./*"
   },
