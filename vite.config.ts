@@ -39,13 +39,13 @@ export default defineConfig({
     copyPublicDir: false,
     sourcemap: true,
     rollupOptions: {
-      external: ["vue-demi"],
+      external: ["vue-demi", "vue"],
       output: {
         globals: {
           [name]: PascalCasedName,
-          "vue-demi": "VueDemi"
-        },
-        exports: "named"
+          "vue-demi": "VueDemi",
+          vue: "Vue"
+        }
       }
     }
   }

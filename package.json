@@ -1,14 +1,14 @@
 {
   "name": "vuetable-next",
   "description": "Simple table for displaying data.",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "author": "Artem Alesenko",
   "type": "module",
+  "files": ["dist"],
   "private": false,
   "PascalCasedName": "VuetableNext",
-  "main": "./dist/vuetable-next.umd.js",
-  "module": "./dist/vuetable-next.mjs",
-  "unpkg": "./dist/vuetable-next.umd.js",
+  "main": "./dist/vuetable-next.umd.cjs",
+  "module": "./dist/vuetable-next.js",
   "license": "MIT",
   "keywords": [
     "vue",
@@ -26,8 +26,7 @@
       "types": "./dist/vuetable-next.d.ts",
       "import": "./dist/vuetable-next.js",
       "require": "./dist/vuetable-next.umd.cjs"
-    },
-    "./*": "./*"
+    }
   },
   "bugs": {
     "url": "https://github.com/Artles777/vuetable-next/issues"
@@ -37,8 +36,7 @@
     "url": "git+https://github.com/Artles777/vuetable-next.git"
   },
   "scripts": {
-    "dev:2": "vue-demi-switch 2 && vite",
-    "dev:3": "vue-demi-switch 3 && vite",
+    "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest"

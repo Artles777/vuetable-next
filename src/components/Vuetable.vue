@@ -25,6 +25,7 @@
     </div>
 
     <div
+      ref="vuetable"
       :class="{'fixed-header' : isFixedHeader}"
       :style="{ height: tableHeight! }"
       class="vuetable-body-wrapper">
@@ -82,7 +83,7 @@
                       :class="bodyClass('vuetable-slot', field)"
                       :style="{ width: field.width! }">
                       <slot
-                        :name="field.name as string"
+                        :name="field.name"
                         :row-data="item"
                         :row-index="itemIndex"
                         :row-field="field">
@@ -170,7 +171,8 @@ import {
   onMounted,
   onUnmounted,
   watch,
-  provide, toRefs
+  provide,
+  toRefs
 } from "vue-demi";
 import type { ComponentPublicInstance, DefineComponent } from "vue-demi";
 import { unref } from "vue";
@@ -222,7 +224,7 @@ interface Props {
 }
 
 interface Field {
-  name: string | DefineComponent
+  name: any | DefineComponent
   sortField: string | null
   title: string | ((str?: any) => string)
   titleClass: string
@@ -309,7 +311,15 @@ const emit = defineEmits<{
   "vuetable:initialized": [tableFields: Field[]]
 }>();
 
-const slots = defineSlots();
+const slots = defineSlots<
+{
+  [K in keyof Record<string, string> as K extends string ? `cell:${K}` : never]?: (_: any) => any;
+} & {
+  default?: (_: Record<string, any>) => any;
+  tableHeader?: () => any;
+  tableFooter?: () => any;
+}
+>();
 
 defineOptions({
   name: "Vuetable",
@@ -318,9 +328,9 @@ defineOptions({
     VuetableColGroup,
   }
 });
-
 const app = getCurrentInstance();
 
+const vuetable = ref();
 const tableFields = ref<Field[]>([]);
 const tableData = ref<any[] | null>(null);
 const tablePagination = ref<Pagination | null>(null);
@@ -350,7 +360,6 @@ const blankRows = computed(() =>  emptyDataTable.value ? minRows : tableData.val
 const isApiMode = computed(() => apiMode);
 const isDataMode = computed(() => !apiMode);
 const isFixedHeader = computed(() => tableHeight != null);
-const vuetable = computed(() => app?.proxy);
 
 normalizeFields();
 normalizeSortOrder();
@@ -367,7 +376,7 @@ onMounted(() => {
   if (isFixedHeader) {
     scrollBarWidth.value = getScrollBarWidth() + "px";
 
-    let elem = app?.proxy?.$el.getElementsByClassName("vuetable-body-wrapper")[0];
+    let elem = vuetable.value.getElementsByClassName("vuetable-body-wrapper")[0];
     if (elem != null) {
       elem.addEventListener("scroll", handleScroll);
     }
@@ -375,7 +384,7 @@ onMounted(() => {
 });
 
 onUnmounted(() => {
-  let elem = app?.proxy?.$el.getElementsByClassName("vuetable-body-wrapper")[0];
+  let elem = vuetable.value.getElementsByClassName("vuetable-body-wrapper")[0];
   if (elem != null) {
     elem.removeEventListener("scroll", handleScroll);
   }
@@ -503,7 +512,7 @@ function handleScroll (e: { currentTarget: HTMLElement }) {
 
   //don't modify header scroll if we are scrolling vertically
   if (horizontal != lastScrollPosition.value) {
-    let header = vuetable.value?.$el.getElementsByClassName("vuetable-head-wrapper")[0];
+    let header = vuetable.value.getElementsByClassName("vuetable-head-wrapper")[0];
     if (header != null) {
       header.scrollLeft = horizontal;
     }
@@ -637,8 +646,8 @@ function isFieldComponent (fieldName: any) {
   return fieldName.slice(0, fieldPrefix.length) === fieldPrefix || fieldName.slice(0, 2) === "__";
 }
 
-function isFieldSlot (fieldName: string | DefineComponent) {
-  return typeof slots[fieldName as string] !== "undefined";
+function isFieldSlot (fieldName: any | DefineComponent) {
+  return typeof slots[fieldName] !== "undefined";
 }
 
 function titleCase (str: string) {
@@ -718,7 +727,7 @@ function updateHeader () {
 
 function checkScrollbarVisibility () {
   nextTick( () => {
-    let elem = vuetable.value?.$el.getElementsByClassName("vuetable-body-wrapper")[0];
+    let elem = vuetable.value.getElementsByClassName("vuetable-body-wrapper")[0];
     if (elem != null) {
       scrollVisible.value = (elem.scrollHeight > elem.clientHeight);
       emit("vuetable:scrollbar-visible", scrollVisible.value);
