@@ -32,11 +32,13 @@ export default defineConfig({
     rollupOptions: {
       external: [
         "vue",
+        "@vue/composition-api",
         "vue-demi"
       ],
       output: {
         globals: {
-          [name]: PascalCasedName
+          [name]: PascalCasedName,
+          "vue-demi": "VueDemi"
         }
       }
     }
