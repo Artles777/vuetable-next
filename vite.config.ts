@@ -30,7 +30,10 @@ export default defineConfig({
     copyPublicDir: false,
     sourcemap: true,
     rollupOptions: {
-      external: ["vue-demi"],
+      external: [
+        "vue",
+        "vue-demi"
+      ],
       output: {
         globals: {
           [name]: PascalCasedName
