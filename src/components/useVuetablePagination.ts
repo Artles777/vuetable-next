@@ -1,4 +1,5 @@
-import { computed, type ComputedGetter, type Ref, ref, toValue } from "vue-demi";
+import { computed, type ComputedGetter, type Ref, ref } from "vue-demi";
+import { toValue } from "../helpers/toValue.ts";
 
 interface TablePagination {
   last_page: number

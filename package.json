@@ -1,7 +1,7 @@
 {
   "name": "vuetable-next",
   "description": "Simple table for displaying data.",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "author": "Artem Alesenko",
   "type": "module",
   "files": ["dist"],
@@ -36,13 +36,13 @@
     "url": "git+https://github.com/Artles777/vuetable-next.git"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vue-demi-switch 3 && vite",
+    "dev:2": "vue-demi-switch 2 vue2 && vite",
     "build": "vite build",
     "preview": "vite preview",
     "test": "vitest"
   },
   "dependencies": {
-    "@types/eslint__js": "^8.42.3",
     "axios": "^1.7.7",
     "mitt": "^3.0.1",
     "sweetalert": "^2.1.2",
@@ -58,6 +58,7 @@
     }
   },
   "devDependencies": {
+    "@types/eslint__js": "^8.42.3",
     "@eslint/js": "^8.57.0",
     "@microsoft/api-extractor": "7.47.7",
     "@types/jquery": "^3.5.30",
@@ -80,6 +81,7 @@
     "vite-plugin-dts": "^4.0.3",
     "vitest": "^2.0.5",
     "vue": "^3.5.3",
+    "vue2": "npm:vue@2.6.14",
     "vue-tsc": "^2.0.24"
   }
 }

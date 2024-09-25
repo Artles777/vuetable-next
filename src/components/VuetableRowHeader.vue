@@ -44,8 +44,7 @@ import VuetableFieldHandle from "./VuetableFieldHandle.vue";
 import VuetableFieldSequence from "./VuetableFieldSequence.vue";
 import VuetableColGutter from "./VuetableColGutter.vue";
 import type { DefineComponent } from "vue-demi";
-import { inject } from "vue-demi";
-import { defineOptions } from "vue-demi";
+import { inject, defineOptions } from "vue-demi";
 import type Vuetable from "./Vuetable.vue";
 
 interface Field {

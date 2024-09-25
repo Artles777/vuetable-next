@@ -257,11 +257,11 @@ const {
   dataManager = null,
   dataPath = "data",
   paginationPath = "links.pagination",
-  queryParams = {
+  queryParams = () => ({
     sort: "sort",
     page: "page",
     perPage: "per_page"
-  },
+  }),
   appendParams = {},
   httpOptions = {},
   httpFetch = null,
