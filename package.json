@@ -1,10 +1,10 @@
 {
   "name": "vuetable-next",
   "description": "Simple table for displaying data.",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "Artem Alesenko",
   "type": "module",
-  "files": ["dist"],
+  "files": ["dist", "src", "*.d.ts"],
   "private": false,
   "PascalCasedName": "VuetableNext",
   "main": "./dist/vuetable-next.umd.cjs",

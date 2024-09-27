@@ -35,58 +35,8 @@ import Vuetable from "vuetable-next";
     </Vuetable>
 <template>
 ```
-## 👨Vue 2.7
-### Global Registration
-```ts
-import Vuetable from "vuetable-next";
-import Vue from "vue";
-
-Vue.use(Vuetable);
-```
-### Local Registration
-```vue
-<script setup>
-import Vuetable from "vuetable-next";
-</script>
-
-<template>
-    <Vuetable
-        ref="table"
-        v-bind="{/* local props & attrs */}">
-    </Vuetable>
-<template>
-```
-
-## 👴Vue 2.6
-### Global Registration
-```ts
-import VueCompositionAPI from "@vue/composition-api";
-import Vuetable from "vuetable-next";
-import Vue from "vue";
-
-Vue.use(VueCompositionAPI);
-Vue.use(Vuetable);
-```
-### Local Registration
-```vue
-<script>
-import VueCompositionAPI from "@vue/composition-api";
-import Vuetable from "vuetable-next";
-import Vue from "vue";
-Vue.use(VueCompositionAPI);
-
-export default {
-  components: { Vuetable }
-}
-</script>
-
-<template>
-    <Vuetable
-        ref="table"
-        v-bind="{/* local props & attrs */}">
-    </Vuetable>
-<template>
-```
+### ⏳<span style="color:red">Vue 2.6 & 2.7 is temporarily not supported</span>
+> We're working on it. We will add support in a future release.
 
 Also you have the ability to access certain components if you need them:
 ```javascript
